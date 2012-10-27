@@ -7,6 +7,7 @@ gem 'rails', '3.2.8'
 
 group :development do
       gem 'sqlite3'
+      gem 'nokogiri'
 end
 
 # Gems used only for assets and not required
@@ -38,3 +39,4 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem 'heroku'
+gem 'fastercsv'

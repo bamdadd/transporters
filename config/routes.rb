@@ -1,4 +1,5 @@
 Transporters::Application.routes.draw do
+  get "stops/index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
