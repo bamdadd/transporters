@@ -48,19 +48,36 @@
 	
 	}
 	
+	function createStop(stop){
+	       var  marker,
+				infoWindow;	
+
+	        infoWindow = new google.maps.InfoWindow({
+	            content: stop.common_name
+	        });
+        
+        
+			marker = new google.maps.Marker({
+				position: new google.maps.LatLng(stop.latitude, stop.longitude),
+				map: map,
+				title: stop.common_name,
+				draggable: false
+			}); 
+			
+			google.maps.event.addListener(marker, 'click', function() {
+    	      infoWindow.open(map,marker);
+	        });	
+	        
+		return {m: marker, w:infoWindow};
+	}
+	
 	function showStopsOnMap(data){
-		var l = data.length,
-			marker;	
+		var l = data.length;
+		
+		stops = [];
 		
 		for(var i=0; i < l; i++){
-
-				marker = new google.maps.Marker({
-					position: new google.maps.LatLng(data[i].latitude, data[i].longitude),
-					map: map,
-					title: data[i].common_name,
-					draggable: false
-				}); 
-				stops.push(marker);     
+			stops.push(createStop(data[i]));     
 		}		
 	}
 	function setUpPanorama(myLatLng){
