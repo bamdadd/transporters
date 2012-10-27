@@ -1,11 +1,11 @@
-
+(function(){
 	var map, panorama,
 	  currentPositionMarker,
 	  stops = [];
 	  
 	function loadMap() {
 		var mapOptions = {
-			zoom: 16,
+			zoom: 18,
 			center: new google.maps.LatLng(53.485594,-2.245434),
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
@@ -24,7 +24,8 @@
 		currentPositionMarker = new google.maps.Marker({
 						position: myLatLng,
 						map: map,
-						title: 'You'
+						title: 'You',
+						icon: "/person.png"
 					}); 
 		setUpPanorama(myLatLng);     
 		
@@ -48,6 +49,16 @@
 	
 	}
 	
+	function getStopsWithinView(){
+		var bounds = map.getBounds(),
+			ne = bounds.getNorthEast(),
+			sw = bounds.getSouthWest();
+		
+		
+		
+			
+	}
+	
 	function createStop(stop){
 	       var  marker,
 				infoWindow;	
@@ -61,14 +72,21 @@
 				position: new google.maps.LatLng(stop.latitude, stop.longitude),
 				map: map,
 				title: stop.common_name,
-				draggable: false
+				draggable: false,
+				icon: "http://google-maps-icons.googlecode.com/files/bus.png"
 			}); 
 			
 			google.maps.event.addListener(marker, 'click', function() {
-    	      infoWindow.open(map,marker);
+    	      infoWindow.open(map,marker)
+
 	        });	
 	        
 		return {m: marker, w:infoWindow};
+	}
+
+	function getBuses(stopName, infoWindow){
+		
+	
 	}
 	
 	function showStopsOnMap(data){
@@ -111,11 +129,7 @@
           
       
 	function fixgeometry() {
-	    /* Some orientation changes leave the scroll position at something
-	     * that isn't 0,0. This is annoying for user experience. */
 	    scroll(0, 0);
-	
-	    /* Calculate the geometry that our content area should take */
 	    var header = $(".ui-header:visible");
 	    var footer = $(".ui-footer:visible");
 	    var content = $(".ui-content:visible");
@@ -123,15 +137,13 @@
 	    
 	    var content_height = viewport_height - header.outerHeight() - footer.outerHeight();
 	    
-	    /* Trim margin/border/padding height */
 	    content_height -= (content.outerHeight() - content.height());
 	    content.height(content_height);
-	  }; /* fixgeometry */
-	
+	  };	
 	  
 	  $( '#map-page' ).live( 'pageshow',function(event){
 		  	$('#panorama').click(toggleStreetView);
 		  	fixgeometry();
 			loadMap();
 	  });
- 	 	
+})(); 	 	
