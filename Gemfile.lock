@@ -113,6 +113,7 @@ PLATFORMS
 DEPENDENCIES
   fastercsv
   heroku
+  jquery-rails
   nokogiri
   rails (= 3.2.8)
   sass-rails (~> 3.2.3)
