@@ -37,6 +37,9 @@ class Stop
     stops
   end
 
+  def self.find_by_code(code)
+  end
+
   def self.find_by_name(name)
     stops = []
     limit = 10
