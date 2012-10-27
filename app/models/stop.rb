@@ -40,9 +40,10 @@ class Stop
 
   def self.find_by_name(name)
     stops = []
+    limit = 10
+    count = 0
     CSV.foreach(File.dirname(__FILE__) + '/MancStops.csv', :headers => true) do |row|
       if(row["CommonName"].downcase.include? name.downcase)
-
         stop = Stop.new
         stop.common_name = row["CommonName"]
         stop.landmark = row["Landmark"]
@@ -50,6 +51,10 @@ class Stop
         stop.latitude = row["Latitude"].to_f
         stop.street = row["Street"]
         stops << stop
+
+        count = count.next
+        return stops if(count == limit)
+
       end
     end
     stops
