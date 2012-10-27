@@ -24,8 +24,8 @@ class Stop
       latitude = row["Latitude"].to_f
       longitude = row["Longitude"].to_f
 
-      if(lat > latitude - 0.5 && lat < latitude + 0.5 &&
-          long > longitude - 0.5 && long < longitude + 0.5 )
+      if(lat > latitude - 0.005 && lat < latitude + 0.005 &&
+          long > longitude - 0.005 && long < longitude + 0.005 )
 
         stop = Stop.new
         stop.common_name = row["CommonName"]

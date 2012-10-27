@@ -1,5 +1,5 @@
 
-	var map,
+	var map, panorama,
 	  currentPositionMarker,
 	  stops = [];
 	  
@@ -11,6 +11,7 @@
 		};
 		
 		map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+		
 		getCurrentPosition();
 	}
 	
@@ -24,7 +25,8 @@
 						position: myLatLng,
 						map: map,
 						title: 'You'
-					});      
+					}); 
+		setUpPanorama(myLatLng);     
 		
 	}
 	
@@ -55,12 +57,30 @@
 				marker = new google.maps.Marker({
 					position: new google.maps.LatLng(data[i].latitude, data[i].longitude),
 					map: map,
-					title: data[i].common_name
+					title: data[i].common_name,
+					draggable: false
 				}); 
 				stops.push(marker);     
 		}		
 	}
+	function setUpPanorama(myLatLng){
+        panorama = map.getStreetView();
+        panorama.setPosition(myLatLng);
+        panorama.setPov({
+          heading: 265,
+          zoom:1,
+          pitch:0}
+        );
 	
+	}
+	function toggleStreetView() {
+        var toggle = panorama.getVisible();
+        if (toggle == false) {
+          panorama.setVisible(true);
+        } else {
+          panorama.setVisible(false);
+        }
+    }
 	
 	function getCurrentPosition(){
 		if(navigator.geolocation){
@@ -93,7 +113,8 @@
 	
 	  
 	  $( '#map-page' ).live( 'pageshow',function(event){
+		  	$('#panorama').click(toggleStreetView);
 		  	fixgeometry();
 			loadMap();
 	  });
- 
+ 	 	
