@@ -9,8 +9,8 @@ class Stop
       stop = Stop.new
       stop.common_name = row["CommonName"]
       stop.landmark = row["Landmark"]
-      stop.longitude = row["Longitude"]
-      stop.latitude = row["Latitude"]
+      stop.longitude = row["Longitude"].to_f
+      stop.latitude = row["Latitude"].to_f
       stop.street = row["Street"]
       stops << stop
     end
