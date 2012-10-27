@@ -29,11 +29,11 @@ var fixgeometry = function() {
     /* Trim margin/border/padding height */
     content_height -= (content.outerHeight() - content.height());
     content.height(content_height);
+    console.log(content_height);
   }; /* fixgeometry */
 
-$(function(){  
-alert('test');
-$(document).delegate('.ui-page', 'pageshow', function(){
-	alert('test');
-});
-});
+  
+  $( '#map-page' ).live( 'pageinit',function(event){
+  		fixgeometry();
+  		initialize();
+  });
