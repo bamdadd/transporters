@@ -37,3 +37,9 @@ end
 
 gem 'heroku'
 gem 'fastercsv'
+
+
+group :production do
+  # gems specifically for Heroku go here
+  gem "pg"
+end
