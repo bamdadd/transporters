@@ -11,6 +11,7 @@ class Route
 
   def open_xml_file(file_path)
   xml_file = open(file_path)
+  puts file_path
   @doc = Nokogiri::XML(xml_file)
   end
 
@@ -37,6 +38,11 @@ class Route
     @doc.css("OperatorShortName").first.children.to_s
   end
 
+  def get_days
+    @doc.css("VehicleJourney").first.css("DaysOfWeek").children.collect(&:name).uniq - ["text"]
+
+  end
+
 
 end
 
@@ -48,16 +54,15 @@ xml_files.each do |file|
   operator= r.get_operator_name.to_s.sub('&amp;', '&')
   stop_refs = ""
   stop_names =""
-  puts line_name
-  puts operator
+  days=""
+
+  puts r.get_days
   r.get_stops.each {|line| stop_refs = stop_refs + line[:ref]+ "|"}
   r.get_stops.each {|line| stop_names = stop_names + line[:common_name]+ "|"}
+  r.get_days.each {|day| days = days + day + "|"}
   puts stop_names
-  #CSV.open('routes.csv', 'w') do |csv|
-  #  csv << ["Line Name", "Operator Name", "Stop Reference", "Stop Name"]
-  #end
   CSV.open('routes.csv', 'ab') do |csv|
-    csv << [line_name , operator, stop_refs , stop_names]
+    csv << [line_name , operator, stop_refs , stop_names, days]
   end
 end
 
