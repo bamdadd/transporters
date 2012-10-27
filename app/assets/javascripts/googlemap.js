@@ -13,7 +13,7 @@
       
       
       
-var fixgeometry = function() {
+function fixgeometry() {
     /* Some orientation changes leave the scroll position at something
      * that isn't 0,0. This is annoying for user experience. */
     scroll(0, 0);
@@ -30,10 +30,11 @@ var fixgeometry = function() {
     content_height -= (content.outerHeight() - content.height());
     content.height(content_height);
     console.log(content_height);
+      		initialize();
   }; /* fixgeometry */
 
   
-  $( '#map-page' ).live( 'pageinit',function(event){
-  		fixgeometry();
-  		initialize();
+  $( '#map-page' ).live( 'pageshow',function(event){
+	  	fixgeometry();
+
   });
