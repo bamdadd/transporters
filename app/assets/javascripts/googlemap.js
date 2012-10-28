@@ -1,3 +1,16 @@
+	function fixgeometry() {
+	    scroll(0, 0);
+	    var header = $(".ui-header:visible");
+	    var footer = $(".ui-footer:visible");
+	    var content = $(".ui-content:visible");
+	    var viewport_height = $(window).height();
+	    
+	    var content_height = viewport_height - header.outerHeight() - footer.outerHeight();
+	    
+	    content_height -= (content.outerHeight() - content.height());
+	    content.height(content_height);
+	  };	
+	  
 (function(){
 	var map, panorama,
 	  currentPositionMarker,
@@ -137,18 +150,6 @@
 	}
           
       
-	function fixgeometry() {
-	    scroll(0, 0);
-	    var header = $(".ui-header:visible");
-	    var footer = $(".ui-footer:visible");
-	    var content = $(".ui-content:visible");
-	    var viewport_height = $(window).height();
-	    
-	    var content_height = viewport_height - header.outerHeight() - footer.outerHeight();
-	    
-	    content_height -= (content.outerHeight() - content.height());
-	    content.height(content_height);
-	  };	
 	  
 	  
 	  
@@ -229,6 +230,7 @@
 		  	fixgeometry();
 			loadMap();
 	  });
+	  
 	  
 	  $( '#stop-page').live( 'pageshow', function(event){
 	  		$("#stop-name").text(currentStop.name);
