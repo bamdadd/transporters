@@ -38,4 +38,15 @@ class Route
   def self.filter(term)
     get_routes.values.select{|r| r.route_name.include? term}.take(10)
   end
+
+  def self.find(origin, destination)
+    routes = get_routes.values
+    res = []
+    routes.each do |r|
+      res << r if r.stops.any? {|s| s.common_name == origin.common_name} and
+        r.stops.any? {|s| s.common_name == destination.common_name}
+      return res if(res.count > 10)
+    end
+    res
+  end
 end

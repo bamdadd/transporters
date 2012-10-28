@@ -36,8 +36,7 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     fastercsv (1.5.5)
-    geokit (1.6.5)
-      multi_json
+    geocoder (1.1.4)
     heroku (2.33.0)
       heroku-api (~> 0.3.5)
       launchy (>= 0.3.2)
@@ -115,7 +114,7 @@ PLATFORMS
 
 DEPENDENCIES
   fastercsv
-  geokit
+  geocoder
   heroku
   nokogiri
   pg
