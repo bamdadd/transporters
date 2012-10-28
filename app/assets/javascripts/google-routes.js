@@ -64,7 +64,7 @@ function showBusRoute(){
 		myLatLng = new google.maps.LatLng(geoposition.coords.latitude, geoposition.coords.longitude) 
 	
 		if(currentPositionMarker){
-			currentPositionMarker.setPosition(myLatLng)l
+			currentPositionMarker.setPosition(myLatLng);
 		}
 		
 		currentPositionMarker = new google.maps.Marker({
