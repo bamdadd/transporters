@@ -10,6 +10,12 @@ class Stop
     self.code = row["AtcoCode"]
   end
 
+
+  def to_coordinates
+    [self.latitude, self.longitude]
+  end
+
+
   @@stops = {}
   def self.get_stops
     if(@@stops == {})
@@ -33,9 +39,7 @@ class Stop
       latitude = stop.latitude
       longitude = stop.longitude
 
-      if(lat > latitude - 0.5 && lat < latitude + 0.5 &&
-          long > longitude - 0.5 && long < longitude + 0.5 )
-
+      if(Geocoder::Calculations.distance_between(stop, [lat, long]) < 1)
         res << stop
       end
     end

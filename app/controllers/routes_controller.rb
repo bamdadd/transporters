@@ -14,9 +14,10 @@ class RoutesController < ApplicationController
   def show
     @route = Route.find_by_name(params[:name])
   end
-  
-  def googlemaps
-  
+
+  def search
+    @route = Route.search(params[:lat1], params[:long1], params[:lat2], params[:long2])
+    render 'show'
   end
-  
+
 end
