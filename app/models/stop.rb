@@ -1,14 +1,12 @@
 require 'csv'
 class Stop
   extend ActiveModel::Naming
-  attr_accessor :common_name, :landmark, :street, :longitude, :latitude, :code
+  attr_accessor :common_name, :longitude, :latitude, :code
 
   def initialize row
     self.common_name = row["CommonName"]
-    self.landmark = row["Landmark"]
     self.longitude = row["Longitude"].to_f
     self.latitude = row["Latitude"].to_f
-    self.street = row["Street"]
     self.code = row["AtcoCode"]
   end
 
