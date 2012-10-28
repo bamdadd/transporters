@@ -11,4 +11,7 @@ class RoutesController < ApplicationController
     render :json => Route.filter(params[:name]), :layout => false
   end
 
+  def show
+    @route = Route.find_by_name(params[:name])
+  end
 end

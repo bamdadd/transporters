@@ -68,7 +68,7 @@ $(function(){
 	  list.empty();
 	  	$.each(data, function(index, value) { 
 			   
-			list.append("<li>"+value.route_name +"</li>");
+			list.append("<li><a href='/routes/show/"+ value.route_name +"'>"+value.route_name +"</a></li>");
 		});
 	  	list.listview('refresh');
       };
