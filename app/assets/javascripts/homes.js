@@ -4,20 +4,28 @@
 $(function(){
       // $("#searchStops").change(getStops);
       var getStops = function(){
-	  console.log($("#searchStops").val());
-	  $.ajax({
-		     url: '/stops/find/'+$("#searchStops").val(),
-		     dataType: 'json',
-		     success: loadStopList
-		 });
+        var search = $("#searchStops").val();
+        
+        if(search){
+		    $.ajax({
+			     url: '/stops/find/'+search,
+			     dataType: 'json',
+			     success: loadStopList
+			 });
+		} else {
+			clearList();
+		}
       };
+      var clearList = function(){
+      	$("#stopList").empty();      
+      }
       var loadStopList = function(data){
-	  var list = $("#stopList");
-	  list.empty();
-	  $.each(data, function(index, value) { 
-		     list.append("<li>"+value.common_name +"</li>");
-		 });
-	  list.listview('refresh');
+	  	var list = $("#stopList");
+	  	list.empty();
+	  	$.each(data, function(index, value) { 
+			list.append("<li>"+value.common_name +"</li>");
+		});
+	  	list.listview('refresh');
       };
 
       var typingTimer;                //timer identifier
@@ -32,5 +40,6 @@ $(function(){
       $('#searchStops').keydown(function(){
 				    clearTimeout(typingTimer);
 				});
+ 	  $('.ui-input-clear').live('click', clearList);
       
 });
