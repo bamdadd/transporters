@@ -1,7 +1,8 @@
 (function(){
 	var map, panorama,
 	  currentPositionMarker,
-	  stops = [];
+	  stops = [],
+	  currentStop = {};
 	  
 	function loadMap() {
 		if(!map){
@@ -86,6 +87,7 @@
 	}
 
 	function getBuses(stopName){
+		currentStop.name = stopName;
 		$.mobile.changePage( "/homes/show_stop", { transition: "slideup"} );
 	}
 	
@@ -149,8 +151,7 @@
 	  });
 	  
 	  $( '#stop-page').live( 'pageshow', function(event){
-	  		$('#close-stop-info').click(function(){
-	  			window.history.back();
-	  		});
+	  		$("#stop-name").text(currentStop.name);
+	  		
 	  });
 })(); 	 	
