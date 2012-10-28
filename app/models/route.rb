@@ -8,34 +8,30 @@ class Route
     self.route_name = row[0]
     self.operator = row[1]
     self.stops = row[2].split("|").collect {|c| Stop.find_by_code(c)}
-    self.stop_codes = row[2].split("|")
     self.days = row[3].split("|")
   end
 
-  def self.all
-    routes = []
-    CSV.foreach(File.dirname(__FILE__) + '/routes.csv', :headers => false) do |row|
-      route = Route.new(row)
-      routes << route
+  @@routes = {}
+
+  def self.get_routes
+    if(@@routes == {})
+      CSV.foreach(File.dirname(__FILE__) + '/routes.csv', :headers => false) do |row|
+        route = Route.new(row)
+        row.stops.compact!
+        if(row.stops != [])
+          @@routes[row.route_name] = route
+        end
+      end
     end
-    routes
+    @@routes
+  end
+
+  def self.all
+    get_routes.values.take(10)
   end
 
 
   def self.find_by_name(name)
-    routes = []
-    limit = 10
-    count = 0
-    CSV.foreach(File.dirname(__FILE__) + '/routes.csv', :headers => false) do |row|
-      if(row[0].downcase.include? name.downcase)
-        route = Route.new(row)
-        routes << route
-
-        count = count.next
-        return routes if(count == limit)
-
-      end
-    end
-    routes
+    get_routes[name]
   end
 end
