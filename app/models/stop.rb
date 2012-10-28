@@ -39,11 +39,14 @@ class Stop
       latitude = stop.latitude
       longitude = stop.longitude
 
-      if(Geocoder::Calculations.distance_between(stop, [lat, long]) < 1)
-        res << stop
+      distance = Geocoder::Calculations.distance_between(stop, [lat, long])
+      if(distance < 1)
+        res << [distance, stop]
       end
     end
-    res
+
+    res.sort!{|x,y| x[0] <=> y[0]}
+    res.collect{|x| x[1]}
   end
 
   def self.find_by_code(code)
