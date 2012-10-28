@@ -1,9 +1,15 @@
 function fromTo(){
+
+$(function(){
+      var options = {
+	  componentRestrictions: {country: "uk"}
+      };
+
       var from = document.getElementById('from');
-      var from_ac = new google.maps.places.Autocomplete(from);
+      var from_ac = new google.maps.places.Autocomplete(from, options);
 
       var to = document.getElementById('to');
-      var to_ac = new google.maps.places.Autocomplete(to);
+      var to_ac = new google.maps.places.Autocomplete(to, options);
       
       google.maps.event.addListener(from_ac, 'place_changed', function() {
 					var place_from = from_ac.getPlace();
@@ -31,6 +37,7 @@ function fromTo(){
 				 $(to).attr('long'));
 			 });
 
-  };    
+  });
+}    
   
   $( '#find-route').live( 'pageshow', fromTo);

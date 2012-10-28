@@ -59,4 +59,19 @@ class Route
       end
     end
   end
+
+  def self.keep_terms_only(route, origin, dest)
+    stops = []
+    started = false
+    route.stops.each do |stop|
+      if(stop.code == origin.code && !started)
+        started = true
+        stops << stop
+      elsif(stop.code == dest.code && started)
+        stops << stop
+        route.stops = stops
+        return route
+      end
+    end
+  end
 end
