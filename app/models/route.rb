@@ -45,7 +45,6 @@ class Route
     routes.each do |r|
       res << r if r.stops.any? {|s| s.common_name == origin.common_name} and
         r.stops.any? {|s| s.common_name == destination.common_name}
-      return res if(res.count > 10)
     end
     res
   end
@@ -56,7 +55,7 @@ class Route
     origin_stops.each do |origin|
       dest_stops.each do |dest|
         route = find(origin, dest)
-        return route if route.present?
+        return route.first if route.present?
       end
     end
   end
