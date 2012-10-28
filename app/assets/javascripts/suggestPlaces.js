@@ -1,5 +1,4 @@
-
-$(function(){
+function fromTo(){
       var from = document.getElementById('from');
       var from_ac = new google.maps.places.Autocomplete(from);
 
@@ -31,4 +30,6 @@ $(function(){
 				 $(to).attr('long');
 			 });
 
-  });    
+  };    
+  
+  $( '#find-route').live( 'pageshow', fromTo);
