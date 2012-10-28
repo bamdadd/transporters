@@ -26,7 +26,8 @@
 			var mapOptions = {
 				zoom: 18,
 				center: new google.maps.LatLng(53.485594,-2.245434),
-				mapTypeId: google.maps.MapTypeId.ROADMAP
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
+				disableDefaultUI: true
 			};
 			directionsDisplay = new google.maps.DirectionsRenderer();
 			map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
@@ -96,7 +97,6 @@
 			
 			google.maps.event.addListener(marker, 'click', function() {
 				getBuses(stop);
-                console.log(stop);
 
 	        });
  
@@ -104,14 +104,15 @@
 	}
 
 	function getBuses(stop){
+		$.mobile.loading('show');
         $.get('/stoptime/'+stop.code, function(time_data) {
-            console.log(time_data);
             $("#stop-name").text(stop.common_name);
             $(".buses .bus").remove();
             for(var i = 0; i < 5; i++){
-                $("<li class='bus'><a href='#'><strong class='bus-name'>"+time_data.bus_numbers[0]+"</strong> <span class='bus-destination'>"+time_data.dir_name+"</span> <span class='bus-time'>"+time_data.bus_times[i].substring(11,16)+"</span></a></li>").appendTo('.buses');
+                $("<li class='bus' data-icon='false'><a href='#'><strong class='bus-name'>"+time_data.bus_numbers[0]+"</strong> <span class='bus-destination'>"+time_data.dir_name+"</span> <span class='bus-time'>"+time_data.bus_times[i].substring(11,16)+"</span></a></li>").appendTo('.buses');
             }
             $(".buses").listview('refresh');
+            $.mobile.loading('hide');
             $("#popupMenu").popup("open");
         });
 

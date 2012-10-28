@@ -22,6 +22,8 @@ function showBusRoute(){
     	
     	$("#bus-route").text("Bus Number "+data.route_name);
     	
+/*     	$("#bus-route").text("Bus Destination "+data.route_name); */
+    	
     	for(var i = 0; i < dataStops.length; i++){
     		new google.maps.Marker({
 				position: new google.maps.LatLng( dataStops[i].latitude, dataStops[i].longitude),
@@ -66,7 +68,8 @@ function showBusRoute(){
 		if(currentPositionMarker){
 			currentPositionMarker.setPosition(myLatLng);
 		} else {
-			currentPositionMarker = new google.maps.Marker({
+		
+		currentPositionMarker = new google.maps.Marker({
 						position: myLatLng,
 						map: map,
 						title: 'You',
