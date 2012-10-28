@@ -58,11 +58,10 @@ xml_files.each do |file|
 
   puts r.get_days
   r.get_stops.each {|line| stop_refs = stop_refs + line[:ref]+ "|"}
-  r.get_stops.each {|line| stop_names = stop_names + line[:common_name]+ "|"}
   r.get_days.each {|day| days = days + day + "|"}
   puts stop_names
   CSV.open('routes.csv', 'ab') do |csv|
-    csv << [line_name , operator, stop_refs , stop_names, days]
+    csv << [line_name , operator, stop_refs, days]
   end
 end
 
