@@ -61,9 +61,11 @@ function showBusRoute(){
 	
 	function updateMapToCurrentPosition(geoposition){
 	
-	    console.log(geoposition);
 		myLatLng = new google.maps.LatLng(geoposition.coords.latitude, geoposition.coords.longitude) 
 	
+		if(currentPositionMarker){
+			currentPositionMarker.setPosition(myLatLng)l
+		}
 		
 		currentPositionMarker = new google.maps.Marker({
 						position: myLatLng,
