@@ -4,7 +4,9 @@
   });
 
 function showBusRoute(){
-	var directionsDisplay;
+	var directionsDisplay,
+		myLatLng,
+		currentPositionMarker;
 	
 	if($('#map').length > 0){
 	    var map = new window.google.maps.Map(document.getElementById("map"));
@@ -12,7 +14,6 @@ function showBusRoute(){
 	    parseJson(data);
     }
 
-    
     function parseJson(data){
     	
     	var dataStops = data.stops;
@@ -53,7 +54,24 @@ function showBusRoute(){
 	
 	    if (stops.length > 1)
 	        window.tour.calcRoute(directionsService, directionsDisplay);
-	}    
+	        
+	    navigator.geolocation.watchPosition(updateMapToCurrentPosition, function(){ alert('search failed')});
+	}   
+	
+	function updateMapToCurrentPosition(geoposition){
+	
+	
+		myLatLng = new google.maps.LatLng(geoposition.coords.latitude, geoposition.coords.longitude) 
+	
+		
+		currentPositionMarker = new google.maps.Marker({
+						position: myLatLng,
+						map: map,
+						title: 'You',
+						icon: "/person.png"
+					});     
+		
+	} 
 }
 
 function Tour_startUp() {
