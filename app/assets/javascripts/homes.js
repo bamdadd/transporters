@@ -30,7 +30,7 @@ $(function(){
       };
 
       var typingTimer;                //timer identifier
-      var doneTypingInterval = 500;  //time in ms, 5 second for example
+      var doneTypingInterval = 1;  //time in ms, 5 second for example
       
       //on keyup, start the countdown
       $('#searchStops').keyup(function(){
