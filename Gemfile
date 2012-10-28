@@ -4,7 +4,6 @@ gem 'rails', '3.2.8'
 gem 'geocoder'
 gem 'geokit'
 gem 'curb'
-gem 'rexml'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
