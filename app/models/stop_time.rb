@@ -28,13 +28,13 @@ class StopTime
       xml_res = response.body
       doc = REXML::Document.new(xml_res)
       puts xml_res
-      XPath.each(doc, "//MonitoredVehicleJourney") do |journey|
+      XPath.each(doc, "//MonitoredStopVisit") do |journey|
           @bus_numbers=[]
           @bus_times=[]
-           XPath.each(journey , "PublishedLineName"){|bus_number| @bus_numbers.push(bus_number.text)}
+          @dir_names=[]
+           XPath.each(journey , "//PublishedLineName"){|bus_number| @bus_numbers.push(bus_number.text)}
            XPath.each(journey , "//AimedDepartureTime"){|bus_time| @bus_times.push(bus_time.text)}
-          @dir_name= XPath.first(journey, "DirectionName").text
-
+           XPath.each(journey, "//DirectionName"){|dir_name| @dir_names.push(dir_name.text)}
       end
 
 
@@ -42,7 +42,8 @@ class StopTime
     rescue
       p "Error #{$!}"
     end
-    {:bus_numbers => @bus_numbers , :bus_times => @bus_times, :dir_name =>@dir_name}
+    {:bus_numbers => @bus_numbers , :bus_times => @bus_times, :dir_name =>@dir_names}
   end
 end
+
 

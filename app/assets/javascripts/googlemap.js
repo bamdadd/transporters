@@ -118,7 +118,7 @@
             $("#stop-name").text(stop.common_name);
             $(".buses .bus").remove();
             for(var i = 0; i < 5; i++){
-                $("<li class='bus' data-icon='false'><a href='#'><strong class='bus-name'>"+time_data.bus_numbers[0]+"</strong> <span class='bus-destination'>"+time_data.dir_name+"</span> <span class='bus-time'>"+time_data.bus_times[i].substring(11,16)+"</span></a></li>").appendTo('.buses');
+                $("<li class='bus' data-icon='false'><a href='#'><strong class='bus-name'>"+time_data.bus_numbers[i]+"</strong> <span class='bus-destination'>"+time_data.dir_name[i]+"</span> <span class='bus-time'>"+time_data.bus_times[i].substring(11,16)+"</span></a></li>").appendTo('.buses');
             }
             $(".buses").listview('refresh');
             $.mobile.loading('hide');
