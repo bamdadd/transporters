@@ -44,3 +44,50 @@ $(function(){
  	  $('.ui-input-clear').live('click', clearList);
       
 });
+
+
+$(function(){
+      // $("#searchStops").change(getStops);
+      var getRoute = function(){
+        var search = $("#searchRoute").val();
+        
+        if(search){
+		    $.ajax({
+			     url: '/routes/index',
+			     dataType: 'json',
+			     success: loadRouteList
+			 });
+		} else {
+			clearList();
+		}
+      };
+      var clearList = function(){
+      	$("#routesList").empty();      
+      };
+      var loadRouteList = function(data){
+	  var list = $("#routesList");
+	  list.empty();
+	  console.log(data);
+	  	$.each(data, function(index, value) { 
+			   
+			list.append("<li>"+value.route_name +"</li>");
+		});
+	  	list.listview('refresh');
+      };
+
+      var typingTimer;                //timer identifier
+      var doneTypingInterval = 500;  //time in ms, 5 second for example
+      
+      //on keyup, start the countdown
+      $('#searchRoute').keyup(function(){
+      			console.log('keyup');
+				  typingTimer = setTimeout(getRoute, doneTypingInterval);
+			      });
+      
+      //on keydown, clear the countdown 
+      $('#searchRoute').keydown(function(){
+				    clearTimeout(typingTimer);
+				});
+ 	  $('.ui-input-clear').live('click', clearList);
+      
+});

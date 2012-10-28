@@ -17,9 +17,9 @@ class Route
     if(@@routes == {})
       CSV.foreach(File.dirname(__FILE__) + '/routes.csv', :headers => false) do |row|
         route = Route.new(row)
-        row.stops.compact!
-        if(row.stops != [])
-          @@routes[row.route_name] = route
+        route.stops.compact!
+        if(route.stops != [])
+          @@routes[route.route_name] = route
         end
       end
     end
