@@ -4,6 +4,8 @@
   });
 
 function showBusRoute(){
+	var directionsDisplay;
+	
 	if($('#map').length > 0){
 	    var map = new window.google.maps.Map(document.getElementById("map"));
 	    var data = JSON.parse($("<div/>").html($('#route_data').text()).text());
@@ -39,13 +41,13 @@ function showBusRoute(){
     function loadMap(stops){
 	
 	    // new up complex objects before passing them around
-	    var directionsDisplay = new window.google.maps.DirectionsRenderer();
+	    directionsDisplay = new window.google.maps.DirectionsRenderer();
 	    directionsDisplay.setOptions( { suppressMarkers: true } );
 	
 	    var directionsService = new window.google.maps.DirectionsService();
 	    
-	    Tour_startUp(stops);
-	
+	    Tour_startUp();
+		window.tour.setStops(stops);
 	    window.tour.loadMap(map, directionsDisplay);
 	    window.tour.fitBounds(map);
 	
@@ -54,9 +56,9 @@ function showBusRoute(){
 	}    
 }
 
-function Tour_startUp(stops) {
+function Tour_startUp() {
     if (!window.tour) window.tour = {
-        updateStops: function (newStops) {
+        setStops: function (newStops) {
             stops = newStops;
         },
         // map: google map object
