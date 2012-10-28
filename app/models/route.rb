@@ -3,10 +3,12 @@ class Route
   extend ActiveModel::Naming
   attr_accessor :route_name, :operator, :stops, :days
 
+  attr_accessor :stop_codes
   def initialize row
     self.route_name = row[0]
     self.operator = row[1]
-    self.stops = row[2].split("|")
+    self.stops = row[2].split("|").collect {|c| Stop.find_by_code(c)}
+    self.stop_codes = row[2].split("|")
     self.days = row[3].split("|")
   end
 

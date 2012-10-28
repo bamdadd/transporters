@@ -1,7 +1,7 @@
 require 'csv'
 class Stop
   extend ActiveModel::Naming
-  attr_accessor :common_name, :landmark, :street, :longitude, :latitude, :naptan_code
+  attr_accessor :common_name, :landmark, :street, :longitude, :latitude, :code
 
   def initialize row
     self.common_name = row["CommonName"]
@@ -9,7 +9,7 @@ class Stop
     self.longitude = row["Longitude"].to_f
     self.latitude = row["Latitude"].to_f
     self.street = row["Street"]
-    self.naptan_code = row["NaptanCode"]
+    self.code = row["AtcoCode"]
   end
 
   @@stops = {}
@@ -18,7 +18,7 @@ class Stop
       stops = []
       CSV.foreach(File.dirname(__FILE__) + '/MancStops.csv', :headers => true) do |row|
         stop = Stop.new(row)
-        @@stops[stop.naptan_code] = stop
+        @@stops[stop.code] = stop
       end
     end
     @@stops
@@ -31,7 +31,7 @@ class Stop
   def self.find(lat,long)
     stops = get_stops.values
     res = []
-    stops.each do stop
+    stops.each do |stop|
       latitude = stop.latitude
       longitude = stop.longitude
 
