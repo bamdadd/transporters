@@ -23,8 +23,6 @@
 	
 		var myLatLng = new google.maps.LatLng(geoposition.coords.latitude, geoposition.coords.longitude) 
 	
-		var myLatLng = new google.maps.LatLng(53.485594,-2.245434);
-		
 		map.setCenter(myLatLng);	
 		
 		getLocalStops(geoposition.coords.latitude, geoposition.coords.longitude);
