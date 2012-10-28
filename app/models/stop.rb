@@ -12,66 +12,56 @@ class Stop
     self.naptan_code = row["NaptanCode"]
   end
 
-  @@stops = []
+  @@stops = {}
   def self.get_stops
-    if(@@stops == [])
+    if(@@stops == {})
       stops = []
       CSV.foreach(File.dirname(__FILE__) + '/MancStops.csv', :headers => true) do |row|
         stop = Stop.new(row)
-        stops << stop
+        @@stops[stop.naptan_code] = stop
       end
-      @@stops = stops
-    else
-      @@stops
     end
+    @@stops
   end
 
   def self.all
-
-    stops = get_stops
-
-    stops
+    get_stops.values
   end
 
   def self.find(lat,long)
-    stops = []
-    CSV.foreach(File.dirname(__FILE__) + '/MancStops.csv', :headers => true) do |row|
-      latitude = row["Latitude"].to_f
-      longitude = row["Longitude"].to_f
+    stops = get_stops.values
+    res = []
+    stops.each do stop
+      latitude = stop.latitude
+      longitude = stop.longitude
 
       if(lat > latitude - 0.005 && lat < latitude + 0.005 &&
           long > longitude - 0.005 && long < longitude + 0.005 )
 
-        stop = Stop.new(row)
-        stops << stop
+        res << stop
       end
     end
-    stops
+    res
   end
 
   def self.find_by_code(code)
-    CSV.foreach(File.dirname(__FILE__) + '/MancStops.csv', :headers => true) do |row|
-      if(row["NaptanCode"] == code)
-        return Stop.new(row)
-      end
-    end
-
+    get_stops[code]
   end
 
   def self.find_by_name(name)
-    stops = []
+    stops = get_stops.values
     limit = 10
     count = 0
-    CSV.foreach(File.dirname(__FILE__) + '/MancStops.csv', :headers => true) do |row|
-      if(row["CommonName"].downcase.include? name.downcase)
-        stop = Stop.new(row)
-        stops << stop
+    res = []
+    stops.each do |stop|
+      if(stop.common_name.downcase.include? name.downcase)
+        res << stop
 
         count = count.next
         return stops if(count == limit)
 
       end
     end
-    stops
+    res
   end
 end
