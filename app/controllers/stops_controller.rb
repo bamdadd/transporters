@@ -10,4 +10,9 @@ class StopsController < ApplicationController
   def by_name
     render :json => Stop.find_by_name(params[:name]), :layout => false
   end
+
+
+  def show
+    stop = Stop.find_by_code(params[:code])
+  end
 end
