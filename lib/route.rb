@@ -6,7 +6,7 @@ class Route
   attr_accessor :dir_path
 
   def initialize
-    @dir_path = '/Users/bdashtba/Downloads/NW/'
+    @dir_path = '/Users/jatinn/Projects/HM/NW/'
   end
 
   def open_xml_file(file_path)
@@ -30,7 +30,7 @@ class Route
 
   def list_xml_files
     files = Array.new
-    Dir.new(@dir_path).entries.each { |n| files.push(n) if File.file?(@dir_path+n) }
+    Dir.new(@dir_path).entries.each { |n| files.push(n) if File.file?(@dir_path+n) and n.include? "SVRGM"  }
     files
   end
 
@@ -62,6 +62,3 @@ xml_files.each do |file|
     csv << [line_name , operator, stop_refs, days]
   end
 end
-
-
-
