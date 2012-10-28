@@ -32,11 +32,7 @@ class Route
 
 
   def self.find_by_name(name)
-    results=[]
-    get_routes.each do |route_name|
-       results.push(route_name) if route_name.start_with?(route_name)
-    end
-    results
+     get_routes[name]
   end
 
   def self.filter(term)
