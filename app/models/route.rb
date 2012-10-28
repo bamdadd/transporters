@@ -34,4 +34,8 @@ class Route
   def self.find_by_name(name)
     get_routes[name]
   end
+
+  def self.filter(term)
+    get_routes.values.select{|r| r.route_name.include? term}.take(10)
+  end
 end
