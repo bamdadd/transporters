@@ -1,7 +1,7 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
+$( '#find-route').live( 'pageshow', function(event){
 
-$(function(){
       // $("#searchStops").change(getStops);
       var getStops = function(){
         var search = $("#searchStops").val();
@@ -44,6 +44,7 @@ $(function(){
  	  $('.ui-input-clear').live('click', clearList);
       
 });
+
 
 
 $(function(){

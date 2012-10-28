@@ -10,7 +10,7 @@ function showBusRoute(){
 		currentPositionMarker;
 	
 	if($('#map').length > 0){
-	    map = new window.google.maps.Map(document.getElementById("map"));
+	    map = new window.google.maps.Map(document.getElementById("map"),{disableDefaultUI: true });
 	    var data = JSON.parse($("<div/>").html($('#route_data').text()).text());
 	    parseJson(data);
     }
