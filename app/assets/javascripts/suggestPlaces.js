@@ -25,9 +25,10 @@ function fromTo(){
 
       
       $("#search").click(function(){
-			     window.location = "/routes/search/" + $(from).attr('lat')+ "/" +
+      			$.mobile.loading('show');
+			     $.mobile.changePage("/routes/search/" + $(from).attr('lat')+ "/" +
 				 $(from).attr('long') + "/" + $(to).attr('lat') + "/" +
-				 $(to).attr('long');
+				 $(to).attr('long'));
 			 });
 
   };    

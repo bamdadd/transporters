@@ -59,6 +59,8 @@ function showBusRoute(){
 	        window.tour.calcRoute(directionsService, directionsDisplay);
 	        
 	    navigator.geolocation.watchPosition(updateMapToCurrentPosition, function(){ alert('search failed')});
+	    
+	    $.mobile.loading('hide');
 	}   
 	
 	function updateMapToCurrentPosition(geoposition){
