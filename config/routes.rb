@@ -7,6 +7,7 @@ Transporters::Application.routes.draw do
   get "routes/find/:name", :controller => :routes, :action => :by_name
   get "routes/filter/:name", :controller => :routes, :action => :filter
   get "routes/show/:name", :controller => :routes, :action => :show
+  get "routes/search/:lat1/:long1/:lat2/:long2", :controller => :routes, :action => :search, :constraints  => { :lat1 => /[0-9\.-]+/, :long1 => /[0-9\.-]+/, :lat2 => /[0-9\.-]+/, :long2 => /[0-9\.-]+/ }
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

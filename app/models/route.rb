@@ -45,15 +45,18 @@ class Route
     routes.each do |r|
       res << r if r.stops.any? {|s| s.common_name == origin.common_name} and
         r.stops.any? {|s| s.common_name == destination.common_name}
-      return res if(res.count > 10)
     end
     res
   end
 
   def self.search(lat1, long1, lat2, long2)
-    stop1 = Stop.find(lat1, long1)
-    stop2 = Stop.find(lat2, long2)
-
-    find(stop1, stop2).first
+    origin_stops = Stop.find(lat1, long1)
+    dest_stops = Stop.find(lat2, long2)
+    origin_stops.each do |origin|
+      dest_stops.each do |dest|
+        route = find(origin, dest)
+        return route.first if route.present?
+      end
+    end
   end
 end
