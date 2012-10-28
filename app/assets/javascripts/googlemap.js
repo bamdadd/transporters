@@ -87,9 +87,9 @@
 	function getBuses(stopName){
 		$("#stop-name").text(stopName);
 		$(".buses .bus").remove();
-		
-		$("<li class='bus'><a href='#'><strong class='bus-name'>X5</strong> <span class='bus-destination'>Bury</span> <span class='bus-time'>15mins</span></a></li>").appendTo('.buses');
-		
+		for(var i = 0; i < 5; i++){
+			$("<li class='bus'><a href='#'><strong class='bus-name'>X5</strong> <span class='bus-destination'>Bury</span> <span class='bus-time'>15mins</span></a></li>").appendTo('.buses');
+		}
 		$(".buses").listview('refresh');
 		$("#popupMenu").popup("open");
 	}
