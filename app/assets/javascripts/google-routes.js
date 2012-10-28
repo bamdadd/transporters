@@ -65,15 +65,14 @@ function showBusRoute(){
 	
 		if(currentPositionMarker){
 			currentPositionMarker.setPosition(myLatLng);
-		}
-		
-		currentPositionMarker = new google.maps.Marker({
+		} else {
+			currentPositionMarker = new google.maps.Marker({
 						position: myLatLng,
 						map: map,
 						title: 'You',
 						icon: "/person.png"
 					});     
-		
+		}		
 	} 
 }
 
