@@ -1,7 +1,6 @@
 require "cgi"
 require "uri"
 require "net/http"
-require "rexml"
 
 class StopTime
   def initialize
