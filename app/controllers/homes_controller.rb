@@ -10,4 +10,8 @@ class HomesController < ApplicationController
 	def find_route
 
 	end
+	
+	def show_stop
+	
+	end
 end

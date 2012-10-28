@@ -4,19 +4,26 @@
 	  stops = [];
 	  
 	function loadMap() {
-		var mapOptions = {
-			zoom: 18,
-			center: new google.maps.LatLng(53.485594,-2.245434),
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		};
-		
-		map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-		
-		getCurrentPosition();
+		if(!map){
+			var mapOptions = {
+				zoom: 18,
+				center: new google.maps.LatLng(53.485594,-2.245434),
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			
+			map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+			
+			getCurrentPosition();
+		}
 	}
 	
 	function updateMapToCurrentPosition(geoposition){
+	
+	
 		var myLatLng = new google.maps.LatLng(geoposition.coords.latitude, geoposition.coords.longitude) 
+	
+		var myLatLng = new google.maps.LatLng(53.485594,-2.245434);
+		
 		map.setCenter(myLatLng);	
 		
 		getLocalStops(geoposition.coords.latitude, geoposition.coords.longitude);
@@ -60,12 +67,7 @@
 	}
 	
 	function createStop(stop){
-	       var  marker,
-				infoWindow;	
-
-	        infoWindow = new google.maps.InfoWindow({
-	            content: stop.common_name
-	        });
+	       var  marker;
         
         
 			marker = new google.maps.Marker({
@@ -77,16 +79,14 @@
 			}); 
 			
 			google.maps.event.addListener(marker, 'click', function() {
-    	      infoWindow.open(map,marker)
-
+				getBuses(stop.common_name);
 	        });	
 	        
-		return {m: marker, w:infoWindow};
+		return {m: marker};
 	}
 
-	function getBuses(stopName, infoWindow){
-		
-	
+	function getBuses(stopName){
+		$.mobile.changePage( "/homes/show_stop", { transition: "slideup"} );
 	}
 	
 	function showStopsOnMap(data){
@@ -143,7 +143,14 @@
 	  
 	  $( '#map-page' ).live( 'pageshow',function(event){
 		  	$('#panorama').click(toggleStreetView);
+		  	
 		  	fixgeometry();
 			loadMap();
+	  });
+	  
+	  $( '#stop-page').live( 'pageshow', function(event){
+	  		$('#close-stop-info').click(function(){
+	  			window.history.back();
+	  		});
 	  });
 })(); 	 	
