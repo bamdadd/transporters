@@ -1,7 +1,7 @@
 require "cgi"
 require "uri"
 require "net/http"
-
+include REXML
 class StopTime
 
     @@traveline_api = "http://nextbus.mxdata.co.uk/nextbuses/1.0/1"
@@ -27,7 +27,7 @@ class StopTime
       response.code
       xml_res = response.body
       doc = REXML::Document.new(xml_res)
-
+      puts xml_res
       XPath.each(doc, "//MonitoredVehicleJourney") do |journey|
           @bus_numbers=[]
           @bus_times=[]
