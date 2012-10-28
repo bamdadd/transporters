@@ -3,15 +3,12 @@ require "uri"
 require "net/http"
 require "rexml/document"
 include REXML
-require 'pp'
 
 class StopTime
-  def initialize
-    @traveline_api = "http://nextbus.mxdata.co.uk/nextbuses/1.0/1"
-    #TravelineAPI132:TheiPh1k@
-  end
 
-  def get_times_by_stop_code(stop_code)
+    @@traveline_api = "http://nextbus.mxdata.co.uk/nextbuses/1.0/1"
+
+    def self.get_times_by_stop_code(stop_code)
     req_data = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
               <Siri version="1.0" xmlns="http://www.siri.org.uk/"><ServiceRequest>
             <RequestorRef>TravelineAPI2</RequestorRef>
@@ -21,7 +18,7 @@ class StopTime
             </StopMonitoringRequest></ServiceRequest></Siri>'
 
 
-    url = URI.parse(@traveline_api)
+    url = URI.parse(@@traveline_api)
     begin
       http = Net::HTTP.new(url.host, url.port)
       request = Net::HTTP::Post.new(url.path)

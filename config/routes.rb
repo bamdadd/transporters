@@ -7,6 +7,7 @@ Transporters::Application.routes.draw do
   get "routes/find/:name", :controller => :routes, :action => :by_name
   get "routes/filter/:name", :controller => :routes, :action => :filter
   get "routes/show/:name", :controller => :routes, :action => :show
+  get "stoptime/:stop_code", :controller => :StopTime, :action=> :by_stop_code
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
