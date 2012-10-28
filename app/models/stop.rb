@@ -12,12 +12,24 @@ class Stop
     self.naptan_code = row["NaptanCode"]
   end
 
-  def self.all
-    stops = []
-    CSV.foreach(File.dirname(__FILE__) + '/MancStops.csv', :headers => true) do |row|
-      stop = Stop.new(row)
-      stops << stop
+  @@stops = []
+  def self.get_stops
+    if(@@stops == [])
+      stops = []
+      CSV.foreach(File.dirname(__FILE__) + '/MancStops.csv', :headers => true) do |row|
+        stop = Stop.new(row)
+        stops << stop
+      end
+      @@stops = stops
+    else
+      @@stops
     end
+  end
+
+  def self.all
+
+    stops = get_stops
+
     stops
   end
 
@@ -38,6 +50,12 @@ class Stop
   end
 
   def self.find_by_code(code)
+    CSV.foreach(File.dirname(__FILE__) + '/MancStops.csv', :headers => true) do |row|
+      if(row["NaptanCode"] == code)
+        return Stop.new(row)
+      end
+    end
+
   end
 
   def self.find_by_name(name)
