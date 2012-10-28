@@ -33,6 +33,7 @@ $(function(){
       
       //on keyup, start the countdown
       $('#searchStops').keyup(function(){
+      			console.log('keyup');
 				  typingTimer = setTimeout(getStops, doneTypingInterval);
 			      });
       
