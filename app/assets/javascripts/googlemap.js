@@ -85,8 +85,9 @@
 	}
 
 	function getBuses(stopName){
-		currentStop.name = stopName;
-		$.mobile.changePage( "/homes/show_stop", { transition: "slideup"} );
+		$("#stop-name").text(stopName);
+		$("#popupMenu").popup("open");
+	//	$.mobile.changePage( "/homes/show_stop", { transition: "slideup"} );
 	}
 	
 	function showStopsOnMap(data){
