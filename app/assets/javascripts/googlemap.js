@@ -39,7 +39,7 @@
 	function updateMapToCurrentPosition(geoposition){
 	
 	
-		myLatLng = new google.maps.LatLng(geoposition.coords.latitude, geoposition.coords.longitude) 
+		myLatLng = new google.maps.LatLng(geoposition.coords.latitude, geoposition.coords.longitude) ;
 	
 		map.setCenter(myLatLng);	
 		
@@ -55,6 +55,15 @@
 		
 	}
 	
+	function moveMyMarker(geoposition){
+		myLatLng = new google.maps.LatLng(geoposition.coords.latitude, geoposition.coords.longitude) ;
+		
+		if(currentPositionMarker){
+			currentPositionMarker.setPosition(myLatLng);
+		
+		}
+	
+	}
 	
 	function getAllStops(){
 		$.ajax({
@@ -149,6 +158,7 @@
 	function getCurrentPosition(){
 		if(navigator.geolocation){
 			navigator.geolocation.getCurrentPosition(updateMapToCurrentPosition,geoLocationFailure);
+			navigator.geolocation.watchPosition(moveMyMarker, null);
 		}  
 	}
 	
