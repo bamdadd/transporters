@@ -1,8 +1,6 @@
 require "cgi"
 require "uri"
 require "net/http"
-require "rexml/document"
-include REXML
 
 class StopTime
 
@@ -47,6 +45,3 @@ class StopTime
   end
 end
 
-
-#t = StopTime.new
-#pp t.get_times_by_stop_code("1800SB00331")
