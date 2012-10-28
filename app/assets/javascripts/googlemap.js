@@ -2,7 +2,11 @@
 	var map, panorama,
 	  currentPositionMarker,
 	  stops = [],
-	  currentStop = {};
+	  currentStop = {},
+	  directionsDisplay,
+	  directionsService = new google.maps.DirectionsService(),
+	  myLatLng;
+	  
 	  
 	function loadMap() {
 		if(!map){
@@ -11,9 +15,9 @@
 				center: new google.maps.LatLng(53.485594,-2.245434),
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
-			
+			directionsDisplay = new google.maps.DirectionsRenderer();
 			map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-			
+			directionsDisplay.setMap(map);
 			getCurrentPosition();
 		}
 	}
@@ -21,7 +25,7 @@
 	function updateMapToCurrentPosition(geoposition){
 	
 	
-		var myLatLng = new google.maps.LatLng(geoposition.coords.latitude, geoposition.coords.longitude) 
+		myLatLng = new google.maps.LatLng(geoposition.coords.latitude, geoposition.coords.longitude) 
 	
 		map.setCenter(myLatLng);	
 		
@@ -146,6 +150,34 @@
 	    content.height(content_height);
 	  };	
 	  
+	  
+	  
+	  
+	  function calcRoute() {
+		  var start = myLatLng;
+		  var end = "longford road, chorlton, manchester";
+		  var waypts = [];
+		      waypts.push({
+		          location: '',
+		          stopover:true
+		      });
+		   
+		  
+		  
+		  var request = {
+		      origin: start,
+		      destination: end,
+		     // waypoints: waypts,
+		      travelMode: google.maps.TravelMode.DRIVING
+		  };
+		  
+		  directionsService.route(request, function(response, status) {
+		    if (status == google.maps.DirectionsStatus.OK) {
+		      directionsDisplay.setDirections(response);
+		    }
+		  });
+		}
+	  
 	  $( '#map-page' ).live( 'pageshow',function(event){
 		  	$('#panorama').click(toggleStreetView);
 		  	
@@ -157,4 +189,6 @@
 	  		$("#stop-name").text(currentStop.name);
 	  		
 	  });
+	  
+	  window.calcRoute = calcRoute;
 })(); 	 	
