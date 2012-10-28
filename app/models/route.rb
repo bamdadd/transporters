@@ -49,4 +49,11 @@ class Route
     end
     res
   end
+
+  def self.search(lat1, long1, lat2, long2)
+    stop1 = Stop.find(lat1, long1)
+    stop2 = Stop.find(lat2, long2)
+
+    find(stop1, stop2).first
+  end
 end
