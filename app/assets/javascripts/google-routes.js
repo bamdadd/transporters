@@ -6,10 +6,11 @@
 function showBusRoute(){
 	var directionsDisplay,
 		myLatLng,
+		map,
 		currentPositionMarker;
 	
 	if($('#map').length > 0){
-	    var map = new window.google.maps.Map(document.getElementById("map"));
+	    map = new window.google.maps.Map(document.getElementById("map"));
 	    var data = JSON.parse($("<div/>").html($('#route_data').text()).text());
 	    parseJson(data);
     }
@@ -60,7 +61,7 @@ function showBusRoute(){
 	
 	function updateMapToCurrentPosition(geoposition){
 	
-	
+	    console.log(geoposition);
 		myLatLng = new google.maps.LatLng(geoposition.coords.latitude, geoposition.coords.longitude) 
 	
 		
