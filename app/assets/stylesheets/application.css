@@ -16,3 +16,19 @@
 	background-color:black;
 
 }
+
+
+.bus-name {
+	color:black;
+	padding-right:5px;
+
+}
+
+.bus-destination {
+	padding-right:5px;
+}
+
+.bus-time {
+	padding-right:5px;
+	float:right;
+}

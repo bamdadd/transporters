@@ -86,8 +86,12 @@
 
 	function getBuses(stopName){
 		$("#stop-name").text(stopName);
+		$(".buses .bus").remove();
+		
+		$("<li class='bus'><a href='#'><strong class='bus-name'>X5</strong> <span class='bus-destination'>Bury</span> <span class='bus-time'>15mins</span></a></li>").appendTo('.buses');
+		
+		$(".buses").listview('refresh');
 		$("#popupMenu").popup("open");
-	//	$.mobile.changePage( "/homes/show_stop", { transition: "slideup"} );
 	}
 	
 	function showStopsOnMap(data){
