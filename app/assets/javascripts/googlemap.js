@@ -72,7 +72,7 @@
 	function createStop(stop){
 	       var  marker;
         
-        
+
 			marker = new google.maps.Marker({
 				position: new google.maps.LatLng(stop.latitude, stop.longitude),
 				map: map,
@@ -84,7 +84,7 @@
 			google.maps.event.addListener(marker, 'click', function() {
 				getBuses(stop.common_name);
 	        });	
-	        
+ 
 		return {m: marker};
 	}
 
@@ -152,28 +152,73 @@
 	  
 	  
 	  
+	  function spike(){
+	  	$.ajax({url: "/routes/index",
+ 				dataType: 'json',
+			  	success: parseRoute
+			});	
+	  }
 	  
-	  function calcRoute() {
-		  var start = myLatLng;
-		  var end = "longford road, chorlton, manchester";
-		  var waypts = [];
-		      waypts.push({
-		          location: '',
-		          stopover:true
-		      });
+	  function parseRoute(data){
+	  	var route = data[0];
+	  	var stops = route.stops;
+	  	
+	  	var subRoute;
+	  	for(var loop = 0; loop < 1; loop++){
+	  		subRoute =[];
+		  	for(var i = 0; i < 10; i++){
+		  		console.log(stops[0]);
+		  		if(stops[0]){
+			  		subRoute.push(stops.shift());	  	
+				} else {
+					break;
+				}
+	  		}
+	  		console.log(subRoute);
+	  		calcRoute(subRoute);
+	  	}
+	  	
+	 // 	alert(route.stops.length);
+	  		  	
+	  	
+	  }
+	  
+	  
+	  function calcRoute(wpts) {
+		  var start = wpts.shift();
+		  var end = wpts[8];
+		var wayPoints = [];
+		
+		for(var i = 0; i < 8; i++){
+			wayPoints.push({
+                location:wpts[i].latitude + ',' + wpts[i].longitude,
+                stopover:true
+			})
+		
+		}
 		   
 		  
 		  
 		  var request = {
-		      origin: start,
-		      destination: end,
-		     // waypoints: waypts,
+		      origin: start.latitude + ',' + start.longitude,
+		      destination: end.latitude + ',' + end.longitude,
+		      waypoints: wayPoints,
 		      travelMode: google.maps.TravelMode.DRIVING
 		  };
 		  
 		  directionsService.route(request, function(response, status) {
 		    if (status == google.maps.DirectionsStatus.OK) {
-		      directionsDisplay.setDirections(response);
+		     
+		     new google.maps.polyline({
+		     	map: map,
+		     	
+		     
+		     });
+		     
+		      console.log(response.routes[0].overview_path);
+		      //directionsDisplay.setDirections(response);
+		    } else {
+		    	console.log(google.maps.DirectionsStatus);
 		    }
 		  });
 		}
@@ -191,4 +236,5 @@
 	  });
 	  
 	  window.calcRoute = calcRoute;
+	  window.spike = spike;
 })(); 	 	

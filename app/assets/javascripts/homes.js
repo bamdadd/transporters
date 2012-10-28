@@ -20,6 +20,7 @@ $(function(){
       	$("#stopList").empty();      
       }
       var loadStopList = function(data){
+      
 	  	var list = $("#stopList");
 	  	list.empty();
 	  	$.each(data, function(index, value) { 
@@ -33,7 +34,6 @@ $(function(){
       
       //on keyup, start the countdown
       $('#searchStops').keyup(function(){
-      			console.log('keyup');
 				  typingTimer = setTimeout(getStops, doneTypingInterval);
 			      });
       

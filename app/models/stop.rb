@@ -33,8 +33,8 @@ class Stop
       latitude = stop.latitude
       longitude = stop.longitude
 
-      if(lat > latitude - 0.005 && lat < latitude + 0.005 &&
-          long > longitude - 0.005 && long < longitude + 0.005 )
+      if(lat > latitude - 0.5 && lat < latitude + 0.5 &&
+          long > longitude - 0.5 && long < longitude + 0.5 )
 
         res << stop
       end
