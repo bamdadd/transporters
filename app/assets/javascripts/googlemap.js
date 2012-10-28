@@ -84,7 +84,7 @@
 	
 	function createStop(stop){
 	       var  marker;
-        
+
 
 			marker = new google.maps.Marker({
 				position: new google.maps.LatLng(stop.latitude, stop.longitude),
@@ -95,20 +95,26 @@
 			}); 
 			
 			google.maps.event.addListener(marker, 'click', function() {
-				getBuses(stop.common_name);
-	        });	
+				getBuses(stop);
+                console.log(stop);
+
+	        });
  
 		return {m: marker};
 	}
 
-	function getBuses(stopName){
-		$("#stop-name").text(stopName);
-		$(".buses .bus").remove();
-		for(var i = 0; i < 5; i++){
-			$("<li class='bus'><a href='#'><strong class='bus-name'>X5</strong> <span class='bus-destination'>Bury</span> <span class='bus-time'>15mins</span></a></li>").appendTo('.buses');
-		}
-		$(".buses").listview('refresh');
-		$("#popupMenu").popup("open");
+	function getBuses(stop){
+        $.get('/stoptime/'+stop.code, function(time_data) {
+            console.log(time_data);
+            $("#stop-name").text(stop.common_name);
+            $(".buses .bus").remove();
+            for(var i = 0; i < 5; i++){
+                $("<li class='bus'><a href='#'><strong class='bus-name'>"+time_data.bus_numbers[0]+"</strong> <span class='bus-destination'>"+time_data.dir_name+"</span> <span class='bus-time'>"+time_data.bus_times[i].substring(11,16)+"</span></a></li>").appendTo('.buses');
+            }
+            $(".buses").listview('refresh');
+            $("#popupMenu").popup("open");
+        });
+
 	}
 	
 	function showStopsOnMap(data){

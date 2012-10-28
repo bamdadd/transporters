@@ -33,6 +33,7 @@ class StopTime
           @bus_times=[]
            XPath.each(journey , "PublishedLineName"){|bus_number| @bus_numbers.push(bus_number.text)}
            XPath.each(journey , "//AimedDepartureTime"){|bus_time| @bus_times.push(bus_time.text)}
+          @dir_name= XPath.first(journey, "DirectionName").text
 
       end
 
@@ -41,7 +42,7 @@ class StopTime
     rescue
       p "Error #{$!}"
     end
-    {:bus_numbers => @bus_numbers , :bus_times => @bus_times}
+    {:bus_numbers => @bus_numbers , :bus_times => @bus_times, :dir_name =>@dir_name}
   end
 end
 
