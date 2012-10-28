@@ -18,7 +18,7 @@ $(function(){
       };
       var clearList = function(){
       	$("#stopList").empty();      
-      }
+      };
       var loadStopList = function(data){
 	  	var list = $("#stopList");
 	  	list.empty();
@@ -47,13 +47,12 @@ $(function(){
 
 
 $(function(){
-      // $("#searchStops").change(getStops);
       var getRoute = function(){
         var search = $("#searchRoute").val();
         
         if(search){
 		    $.ajax({
-			     url: '/routes/index',
+			     url: '/routes/filter/'+search,
 			     dataType: 'json',
 			     success: loadRouteList
 			 });
@@ -67,20 +66,20 @@ $(function(){
       var loadRouteList = function(data){
 	  var list = $("#routesList");
 	  list.empty();
-	  console.log(data);
 	  	$.each(data, function(index, value) { 
 			   
 			list.append("<li>"+value.route_name +"</li>");
 		});
 	  	list.listview('refresh');
       };
-
+      // $("#searchRoute").change(getRoute);
       var typingTimer;                //timer identifier
       var doneTypingInterval = 500;  //time in ms, 5 second for example
+
+
       
       //on keyup, start the countdown
       $('#searchRoute').keyup(function(){
-      			console.log('keyup');
 				  typingTimer = setTimeout(getRoute, doneTypingInterval);
 			      });
       
@@ -90,4 +89,4 @@ $(function(){
 				});
  	  $('.ui-input-clear').live('click', clearList);
       
-});
+  });
