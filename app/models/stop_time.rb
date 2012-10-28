@@ -1,7 +1,9 @@
 require "cgi"
 require "uri"
 require "net/http"
-require "rexml"
+require "rexml/document"
+include REXML
+require 'pp'
 
 class StopTime
   def initialize
@@ -28,14 +30,26 @@ class StopTime
       request["Content-Type"] ="application/xml"
       response = http.request(request)
       response.code
-      response.body
+      xml_res = response.body
+      doc = REXML::Document.new(xml_res)
+
+      XPath.each(doc, "//MonitoredVehicleJourney") do |journey|
+          @bus_numbers=[]
+          @bus_times=[]
+           XPath.each(journey , "PublishedLineName"){|bus_number| @bus_numbers.push(bus_number.text)}
+           XPath.each(journey , "//AimedDepartureTime"){|bus_time| @bus_times.push(bus_time.text)}
+
+      end
+
+
+
     rescue
       p "Error #{$!}"
     end
-
+    {:bus_numbers => @bus_numbers , :bus_times => @bus_times}
   end
 end
 
 
-t = StopTime.new
-p t.get_times_by_stop_code("1800EB00871")
+#t = StopTime.new
+#pp t.get_times_by_stop_code("1800SB00331")
