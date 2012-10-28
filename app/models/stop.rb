@@ -56,7 +56,7 @@ class Stop
         res << stop
 
         count = count.next
-        return stops if(count == limit)
+        return res if(count == limit)
 
       end
     end
